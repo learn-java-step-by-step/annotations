@@ -1,0 +1,22 @@
+plugins {
+    id "com.diffplug.spotless" version "6.11.0"
+}
+
+group 'learn_java_step_by_step'
+version '1.0-SNAPSHOT'
+
+spotless {
+    ratchetFrom 'origin/main'
+
+    format 'misc', {
+        target '*.gradle', '*.md', '.gitignore'
+
+        trimTrailingWhitespace()
+        indentWithSpaces(4)
+        endWithNewline()
+    }
+
+    java {
+        googleJavaFormat('1.15.0')
+    }
+}

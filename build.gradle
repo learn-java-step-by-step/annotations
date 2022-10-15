@@ -1,40 +1,40 @@
-plugins {
-    id 'java'
-    id "com.diffplug.spotless" version "6.11.0"
-}
+project.ext.sourceCompatibility = JavaVersion.VERSION_17
 
-group 'learn_java_step_by_step'
-version '1.0-SNAPSHOT'
+subprojects {
 
-repositories {
-    mavenCentral()
-}
+    apply plugin: 'java'
 
-dependencyLocking {
-    lockAllConfigurations()
-}
+    group 'learn_java_step_by_step'
+    version '1.0-SNAPSHOT'
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
-}
-
-test {
-    useJUnitPlatform()
-}
-
-spotless {
-    ratchetFrom 'origin/main'
-
-    format 'misc', {
-        target '*.gradle', '*.md', '.gitignore'
-
-        trimTrailingWhitespace()
-        indentWithSpaces(4)
-        endWithNewline()
+    repositories {
+        mavenCentral()
     }
 
-    java {
-        googleJavaFormat('1.15.0')
+    dependencyLocking {
+        lockAllConfigurations()
+    }
+
+    dependencies {
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+project(':annotated') {
+    configurations {
+        annotationProcessor
+    }
+
+    dependencies {
+        annotationProcessor project(':annotation')
+    }
+
+    compileJava {
+        classpath += configurations.annotationProcessor
     }
 }

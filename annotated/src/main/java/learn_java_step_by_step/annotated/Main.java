@@ -1,4 +1,4 @@
-package learn_java_step_by_step;
+package learn_java_step_by_step.annotated;
 
 /** メインクラス. */
 public class Main {
